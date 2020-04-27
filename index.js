@@ -1,5 +1,4 @@
-import { createApolloFetch } from 'apollo-fetch';
-
+const { createApolloFetch } = require('apollo-fetch');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -13,18 +12,8 @@ app.get('/', (req, res) => {
   res.send('Ola mundo');
 });
 
-// app.get('/graphql', (req, res) => {
-//   fetch('http://localhost:3000/graphql', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ query: '{ __schema { types { name } } }' }),
-//   })
-//     .then((data) => data.json())
-//     .then(res.send(data));
-// });
-
 app.get('/types', (req, res) => {
-  apolloFetch({ query })
+  apolloFetch({ query: '{ __schema { types { name } } }' })
     .then((result) => {
       const { data } = result;
       res.send(data);
